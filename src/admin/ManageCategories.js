@@ -57,14 +57,14 @@ const ManageCategories = () => {
                 <div className="col-sm  ">
                   <h3 className="text-white text-left">{category.name}</h3>
                 </div>
-                <div className="col-sm">
+                {/* <div className="col-sm">
                   <Link
                     className="btn btn-success"
                     to={`/admin/cateory/update/${category._id}/${user._id}`}
                   >
                     <span className="">Update</span>
                   </Link>
-                </div>
+                </div> */}
                 <div className="col-sm">
                   <button
                     onClick={() => {

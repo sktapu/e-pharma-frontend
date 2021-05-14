@@ -17,6 +17,9 @@ const Card = ({
   const cardDescription = product
     ? product.description
     : "Product Description not available!";
+  const cardCategory = product.category
+    ? product.category.name
+    : "Product category not available!";
 
   const cardPrice = product ? product.price : "0";
 
@@ -65,7 +68,7 @@ const Card = ({
         {getARedirect(redirect)}
         <ImageHelper product={product} />
         <p className="lead bg-primary font-weight-normal text-wrap">
-          {product.category.name}
+          {cardCategory}
         </p>
         <p className="lead bg-success font-weight-normal text-wrap">
           {cardDescription}

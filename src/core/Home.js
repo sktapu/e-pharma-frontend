@@ -68,7 +68,7 @@ const Home = () => {
   const ParoductRow = ({ category, products }) => (
     <div className="row">
       {products.map((product, index) => {
-        if (category === product.category.name) {
+        if (product.category && category === product.category.name) {
           return (
             <div key={index} className="col-4 mb-4">
               <Card product={product} />

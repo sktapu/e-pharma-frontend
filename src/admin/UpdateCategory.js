@@ -41,7 +41,7 @@ const UpdateCategory = ({ match }) => {
     console.log(name);
     //backend request fired
     updateCategory(match.params.categoryId, match.params.userId, token, {
-      name,
+      name: name,
     }).then((data) => {
       if (data.error) {
         setError(data.error);

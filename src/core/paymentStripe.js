@@ -36,7 +36,7 @@ const paymentStripe = (products, amount, address, setSuccess, success) => {
     return (
       <StripeCheckout
         image={logo}
-        name={"My Tshirt"}
+        name={"Pandemic E-Pharma"}
         token={onToken}
         stripeKey={process.env.REACT_APP_STRIPEPK}
         amount={amount * 100}
