@@ -13,8 +13,11 @@ const currentTab = (history, path) => {
 const Menu = ({ history }) => (
   <div>
     <ul
-      style={{ alignItems: "center" }}
-      className="nav bg-dark border-success border-bottom"
+      style={{
+        alignItems: "center",
+        width: "100%",
+      }}
+      className="nav bg-dark  border-success border-bottom"
     >
       <li class="nav-item" href="#">
         <Link className="nav-link" to="/">
@@ -107,6 +110,19 @@ const Menu = ({ history }) => (
           </span>
         </li>
       )}
+      <li style={{ position: "absolute", right: "10px" }} className="nav-item">
+        <a
+          style={{
+            backgroundColor: "#f55d5d",
+            color: "White",
+          }}
+          className="nav-link"
+          target="_blank"
+          href="https://www.mohfw.gov.in/covid_vaccination/vaccination/index.html"
+        >
+          COVID-19 Registration
+        </a>
+      </li>
     </ul>
   </div>
 );
