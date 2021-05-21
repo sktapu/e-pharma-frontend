@@ -64,12 +64,14 @@ const UserOrders = () => {
       >
         <div className="rounded border border-success p-2">
           <center>Prescription Image</center>
-          <img
-            src={imageurl}
-            alt="photo"
-            style={{ maxHeight: "100%", maxWidth: "100%" }}
-            className="mb-3 rounded"
-          />
+          <center>
+            <img
+              src={imageurl}
+              alt="photo"
+              style={{ maxHeight: "100%", maxWidth: "100%" }}
+              className="mb-3 rounded"
+            />
+          </center>
         </div>
         <div className="rounded border border-success p-2">
           <h3>User:</h3>
@@ -102,7 +104,7 @@ const UserOrders = () => {
           </th>
           <td>{order._id}</td>
           <td>{order.transaction_id}</td>
-          <td>$ {order.amount}</td>
+          <td>Rs. {order.amount}</td>
           <td>{order.status}</td>
           <td>
             <Popup

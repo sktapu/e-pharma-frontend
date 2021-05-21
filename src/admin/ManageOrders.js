@@ -117,12 +117,14 @@ const ManageOrders = () => {
         >
           <div className="rounded border border-success p-2">
             <center>Prescription Image</center>
-            <img
-              src={imageurl}
-              alt="photo"
-              style={{ maxHeight: "100%", maxWidth: "100%" }}
-              className="mb-3 rounded"
-            />
+            <center>
+              <img
+                src={imageurl}
+                alt="photo"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+                className="mb-3 rounded"
+              />
+            </center>
           </div>
           <div className="rounded border border-success p-2">
             <h3>User:</h3>
