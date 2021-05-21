@@ -5,7 +5,14 @@ import { API } from "../backend";
 import logo from "../tshirt_icon.png";
 import { totalAmount } from "./helper/cartHelper";
 
-const paymentStripe = (products, amount, address, setSuccess, success) => {
+const paymentStripe = (
+  products,
+  amount,
+  address,
+  setSuccess,
+  success,
+  photo
+) => {
   const auth = isAuthenticated();
   const onToken = (token) => {
     // let amount = totalAmount();
@@ -16,20 +23,31 @@ const paymentStripe = (products, amount, address, setSuccess, success) => {
       user: auth.user,
       amount: totalAmount(),
     };
-    const headers = {
+    let headers = {
       "Content-Type": "application/json",
 
       Authorization: `Bearer ${auth.token}`,
     };
-    return fetch(`${API}/payment/gateway_stripe/${auth.user._id}`, {
+    fetch(`${API}/payment/gateway_stripe/${auth.user._id}`, {
       method: "POST",
       headers,
       body: JSON.stringify(body),
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.status === 200) {
+        let order = await response.json();
+        let form = new FormData();
+        form.set("photo", photo);
+        headers = {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+        fetch(`${API}/order/prescription/${order._id}`, {
+          method: "PUT",
+          headers,
+          body: form,
+        }).then((res) => console.log("success", res.json()));
         setSuccess(!success);
       }
-      console.log(response.json());
     });
   };
   const loadPayment = () => {

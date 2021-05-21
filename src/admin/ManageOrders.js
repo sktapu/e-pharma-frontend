@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
 import { getOrders, updateStatus } from "./helper/adminapicall";
+import { API } from "../backend";
 
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
@@ -102,6 +105,48 @@ const ManageOrders = () => {
       "Recieved",
     ];
 
+    const ImageHelper = ({ order, close }) => {
+      const imageurl = order.prescription.data
+        ? `${API}/order/prescription/${order._id}`
+        : `https://causeofaction.org/wp-content/uploads/2013/09/Not-available.gif`;
+      const date = new Date(order.createdAt);
+      return (
+        <div
+          className="rounded text-white bg-dark border border-success p-2 "
+          style={{ overflow: "auto", height: "90vh" }}
+        >
+          <div className="rounded border border-success p-2">
+            <center>Prescription Image</center>
+            <img
+              src={imageurl}
+              alt="photo"
+              style={{ maxHeight: "100%", maxWidth: "100%" }}
+              className="mb-3 rounded"
+            />
+          </div>
+          <div className="rounded border border-success p-2">
+            <h3>User:</h3>
+            <p>ID:{order.user._id}</p>
+            <p>Name:{order.user.name}</p>
+            <h3>Product ordered:</h3>
+            <ol>
+              {order.products.map((product) => (
+                <li>{product.name}</li>
+              ))}
+            </ol>
+            <p>Total Amount:Rs.{order.amount}</p>
+            <p>
+              Order Date:{date.getDate()}/{date.getMonth() + 1}/
+              {date.getFullYear()}
+            </p>
+          </div>
+          <button onClick={close} className="btn btn-danger ml-2">
+            Close
+          </button>
+        </div>
+      );
+    };
+
     const options = (status, orderStatus, index) => {
       if (status === orderStatus) {
         return (
@@ -148,6 +193,16 @@ const ManageOrders = () => {
               )}
             </select>
           </td>
+          <td>
+            <Popup
+              trigger={
+                <button className="btn btn-info ml-2">Open order Detail</button>
+              }
+              modal
+            >
+              {(close) => <ImageHelper order={order} close={close} />}
+            </Popup>
+          </td>
         </tr>
       ));
     }
@@ -177,6 +232,7 @@ const ManageOrders = () => {
                 Click Update status
               </button>
             </th>
+            <th scope="col">View Details</th>
           </tr>
         </thead>
         <tbody>{loadOrders()}</tbody>

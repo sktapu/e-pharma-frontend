@@ -7,6 +7,7 @@ import paymentStripe from "./paymentStripe";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const [photo, setPhoto] = useState("");
   const [reload, setReload] = useState(false);
   const [success, setSuccess] = useState(false);
   const [addressSetter, setAddressSetter] = useState({
@@ -16,7 +17,7 @@ const Cart = () => {
     country: "",
     zip: "",
   });
-
+  // const { formData } = photo;
   const { name, address, state, country, zip } = addressSetter;
 
   const { user } = isAuthenticated();
@@ -43,7 +44,10 @@ const Cart = () => {
   };
 
   const handelChange = (name) => (event) => {
-    setAddressSetter({ ...addressSetter, [name]: event.target.value });
+    const value = name === "photo" ? event.target.files[0] : event.target.value;
+    if (name === "photo") {
+      setPhoto(value);
+    } else setAddressSetter({ ...addressSetter, [name]: value });
   };
 
   const addressForm = () => {
@@ -116,6 +120,18 @@ const Cart = () => {
               id="inputZip"
             />
           </div>
+          <div className="col-md-7">
+            Upload Doctors Prescription
+            <label className="btn btn-block btn-success">
+              <input
+                onChange={handelChange("photo")}
+                type="file"
+                name="photo"
+                accept="image"
+                placeholder="choose a file"
+              />
+            </label>
+          </div>
         </form>
         <p className="text-danger">*Complete Address section to pay</p>
         <h3 className="text-info">
@@ -126,12 +142,14 @@ const Cart = () => {
           state &&
           country &&
           zip &&
+          photo &&
           paymentStripe(
             products,
             totalAmount() / 70,
             addressSetter,
             setSuccess,
-            success
+            success,
+            photo
           )}
       </div>
     );
