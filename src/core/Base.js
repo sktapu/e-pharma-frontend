@@ -1,6 +1,11 @@
 import React from "react";
 import Menu from "./Menu";
-
+import logo from "./github.svg";
+const imageStyle = {
+  height: "30px",
+  with: "30px",
+  margin: "0 0 0 -3vw",
+};
 const Base = ({
   title = "My Title",
   description = "My desription",
@@ -21,9 +26,25 @@ const Base = ({
 
     <footer className="footer bg-dark mt-auto py-3">
       <div className="container-fluid bg-success text-white text-center py-3">
-        <h4>If you got any question, feel free to reach out!</h4>
-        <button className="btn btn-warning">Contact Us</button>
+        <a
+          style={{
+            position: "absolute",
+            left: "0px",
+            cursor: "pointer",
+            color: "black",
+          }}
+          href="https://github.com/NaveenMohanty"
+          target="_blank"
+        >
+          <img style={imageStyle} src={logo} alt="" />
+          <p>Go to GitHub Repository of this website</p>
+        </a>
+        <div>
+          <h4>If you got any question, feel free to reach out!</h4>
+          <button className="btn btn-warning">Contact Us</button>
+        </div>
       </div>
+
       <div className="container">
         <span className="text-muted">
           An amazing place to buy <span className="text-white">Medicines</span>
